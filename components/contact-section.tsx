@@ -29,7 +29,7 @@ export function ContactSection() {
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
           className="bg-card rounded-2xl border border-border p-8"
-          action="mailto:your-email@example.com"
+          action="mailto:thefarhanalam01@gmail.com"
           method="POST"
           encType="text/plain"
         >

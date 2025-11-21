@@ -70,6 +70,8 @@ export function BreakdownTab() {
             expenses: breakdowns,
             totalExpenses: totalExpenses,
             averageExpense: averageExpense,
+            createdBy: activeGroup.createdBy,
+            createdByEmail: activeGroup.createdByEmail,
           }),
         })
         successCount++

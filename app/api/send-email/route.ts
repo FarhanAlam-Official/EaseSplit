@@ -152,6 +152,7 @@ export async function POST(request: Request) {
             <h1>EaseSplit Report</h1>
             <div class="header-subtitle">${groupData.name}</div>
             <div class="header-badge">Complete Financial Overview</div>
+            ${groupData.createdBy ? `<p style="font-size: 13px; color: white; opacity: 0.9; margin-top: 10px; position: relative; z-index: 1;">👤 Group created by <strong>${groupData.createdBy}</strong></p>` : ''}
           </div>
 
           <div class="content">
@@ -232,6 +233,8 @@ export async function POST(request: Request) {
             <div class="footer-meta">
               <p style="margin: 4px 0;">Report generated on ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
               <p style="margin: 4px 0;">Currency: ${groupData.currency} | Group: ${groupData.name}</p>
+              <p style="margin: 12px 0 8px;"><a href="https://ease-split.vercel.app" style="color: #10b981; text-decoration: none; font-weight: 600;">Visit EaseSplit</a> • <a href="https://github.com/FarhanAlam-Official" style="color: #10b981; text-decoration: none; font-weight: 600;">GitHub</a> • <a href="https://ease-split.vercel.app/contact" style="color: #10b981; text-decoration: none; font-weight: 600;">Contact</a></p>
+              <p style="margin: 8px 0 4px; font-size: 11px;">Made with ❤️ by <a href="https://github.com/FarhanAlam-Official" style="color: #10b981; text-decoration: none; font-weight: 600;">Farhan Alam</a></p>
             </div>
           </div>
         </div>

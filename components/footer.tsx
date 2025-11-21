@@ -60,10 +60,10 @@ const footerLinks = {
 // Social media links with icons and hover effects
 const socialLinks = [
   { icon: Twitter, label: "Twitter", href: "#", color: "hover:text-blue-400" },
-  { icon: Facebook, label: "Facebook", href: "#", color: "hover:text-blue-600" },
-  { icon: Instagram, label: "Instagram", href: "#", color: "hover:text-pink-500" },
-  { icon: Linkedin, label: "LinkedIn", href: "#", color: "hover:text-blue-700" },
-  { icon: Github, label: "GitHub", href: "#", color: "hover:text-gray-900 dark:hover:text-gray-100" },
+  { icon: Facebook, label: "Facebook", href: "https://facebook.com/farhanalam930", color: "hover:text-blue-600" },
+  { icon: Instagram, label: "Instagram", href: "https://instagram.com/farhan.alam.01", color: "hover:text-pink-500" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/farhan-alam-aa56b2309", color: "hover:text-blue-700" },
+  { icon: Github, label: "GitHub", href: "https://github.com/FarhanAlam-Official", color: "hover:text-gray-900 dark:hover:text-gray-100" },
 ]
 
 // Key features highlighted in the footer
@@ -137,13 +137,26 @@ export function Footer() {
             {/* Brand Column */}
             <div className="col-span-2 space-y-6">
               <Link href="/" className="flex items-center gap-3 group">
-                <motion.img 
-                  src="/logo.png" 
-                  alt="EaseSplit" 
-                  className="h-12 w-12 object-contain group-hover:scale-110 transition-transform"
-                  whileHover={{ rotate: 5 }}
-                />
-                <span className="text-2xl font-bold text-foreground">EaseSplit</span>
+                <motion.div
+                  whileHover={{ rotate: 360, scale: 1.1 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  className="relative"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl blur-md group-hover:blur-lg transition-all" />
+                  <img 
+                    src="/logo.png" 
+                    alt="EaseSplit Logo" 
+                    className="relative h-12 w-12 object-contain drop-shadow-lg"
+                  />
+                </motion.div>
+                <div className="flex flex-col">
+                  <span className="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                    EaseSplit
+                  </span>
+                  <span className="text-xs font-medium text-muted-foreground tracking-wider">
+                    Split bills. Stay friends.
+                  </span>
+                </div>
               </Link>
               <p className="text-muted-foreground leading-relaxed max-w-xs">
                 The smartest way to split bills with friends. Fast, private, and beautifully simple.
@@ -166,17 +179,9 @@ export function Footer() {
               <div className="space-y-2 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <Mail className="h-4 w-4 text-primary" />
-                  <a href="mailto:hello@easesplit.app" className="hover:text-foreground transition-colors">
-                    hello@easesplit.app
+                  <a href="mailto:thefarhanalam01@gmail.com" className="hover:text-foreground transition-colors">
+                    thefarhanalam01@gmail.com
                   </a>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-primary" />
-                  <span>San Francisco, CA</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-primary" />
-                  <span>+1 (555) 123-4567</span>
                 </div>
               </div>
             </div>
@@ -258,8 +263,8 @@ export function Footer() {
             {/* Copyright */}
             <p className="text-sm text-muted-foreground flex items-center gap-2">
               © {new Date().getFullYear()} EaseSplit. Made with 
-              <Heart className="h-4 w-4 text-red-500 fill-red-500 animate-pulse" /> 
-              in San Francisco
+              <Heart className="h-4 w-4 text-red-500 fill-red-500 animate-pulse drop-shadow-[0_0_8px_rgba(239,68,68,0.6)]" /> 
+              by <a href="https://github.com/FarhanAlam-Official" target="_blank" rel="noopener noreferrer" className="font-semibold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent hover:from-green-500 hover:to-emerald-500 transition-all no-underline">Farhan Alam</a>
             </p>
 
             {/* Social Links */}

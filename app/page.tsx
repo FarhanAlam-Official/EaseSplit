@@ -374,13 +374,36 @@ export default function Home() {
               </p>
               
               <div className="flex flex-wrap gap-4 justify-center">
-                <Button size="lg" variant="secondary" asChild className="group shadow-2xl">
-                  <Link href="/app">
-                    <Zap className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
-                    Get Started Free
-                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative"
+                >
+                  <motion.div
+                    className="absolute inset-0 bg-white rounded-lg blur-md opacity-60"
+                    animate={{
+                      scale: [1, 1.1, 1],
+                      opacity: [0.6, 0.8, 0.6]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  <Button size="lg" variant="secondary" asChild className="relative group shadow-2xl font-semibold">
+                    <Link href="/app" className="flex items-center">
+                      <motion.div
+                        animate={{ rotate: [0, 5, -5, 0] }}
+                        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                      >
+                        <Sparkles className="h-5 w-5" />
+                      </motion.div>
+                      <span className="ml-2">Get Started Free</span>
+                      <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </Button>
+                </motion.div>
                 <Button size="lg" variant="outline" asChild className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20">
                   <Link href="/contact">
                     Contact Us

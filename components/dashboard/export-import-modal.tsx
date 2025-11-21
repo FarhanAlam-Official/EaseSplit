@@ -14,6 +14,7 @@ import { exportToJSON, exportGroupToCSV, importFromJSON } from "@/lib/storage"
 import { Download, Upload, FileJson, FileSpreadsheet, Mail, CheckCircle, AlertCircle, FileCode, Loader2, Send, Server, Lock, User, AtSign } from "lucide-react"
 import type { SMTPConfig } from "@/lib/types"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { notifications } from "@/lib/notifications"
 
 interface ExportImportModalProps {
   open: boolean
@@ -64,12 +65,21 @@ export function ExportImportModal({ open, onOpenChange }: ExportImportModalProps
     if (imported) {
       setData(imported)
       setImportStatus("success")
+      const groupCount = imported.groups?.length || 0
+      notifications.showSuccess({
+        title: "Import Successful!",
+        description: `Restored ${groupCount} group${groupCount !== 1 ? 's' : ''} from backup`,
+      })
       setTimeout(() => {
         setImportStatus("idle")
         setImportText("")
       }, 2000)
     } else {
       setImportStatus("error")
+      notifications.showError({
+        title: "Import Failed",
+        description: "Invalid JSON format. Please check your backup file.",
+      })
     }
   }
 
@@ -108,12 +118,24 @@ export function ExportImportModal({ open, onOpenChange }: ExportImportModalProps
 
       if (response.ok) {
         setEmailStatus("success")
+        notifications.showSuccess({
+          title: "Report Sent! 📧",
+          description: `Group report sent to ${emailTo}`,
+        })
         setTimeout(() => setEmailStatus("idle"), 3000)
       } else {
         setEmailStatus("error")
+        notifications.showError({
+          title: "Email Failed",
+          description: "Could not send report. Check your SMTP settings.",
+        })
       }
     } catch {
       setEmailStatus("error")
+      notifications.showError({
+        title: "Email Failed",
+        description: "Could not send report. Check your SMTP settings.",
+      })
     }
   }
 

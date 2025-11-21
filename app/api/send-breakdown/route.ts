@@ -19,7 +19,7 @@ import nodemailer from "nodemailer"
 export async function POST(request: NextRequest) {
   try {
     // Extract data from request body
-    const { memberEmail, memberName, groupName, currency, balances, expenses, totalExpenses, averageExpense } = await request.json()
+    const { memberEmail, memberName, groupName, currency, balances, expenses, totalExpenses, averageExpense, createdBy, createdByEmail } = await request.json()
 
     // Configure SMTP settings using environment variables with fallbacks
     // Use environment variables for SMTP configuration
@@ -125,6 +125,7 @@ export async function POST(request: NextRequest) {
       <h1>💰 EaseSplit Expense Breakdown</h1>
       <p>${groupName}</p>
       <div class="header-badge">Comprehensive Financial Report</div>
+      ${createdBy ? `<p style="font-size: 13px; opacity: 0.9; margin-top: 10px; position: relative; z-index: 1;">👤 Group created by <strong>${createdBy}</strong></p>` : ''}
     </div>
     
     <div class="content">
@@ -243,10 +244,14 @@ export async function POST(request: NextRequest) {
     <div class="footer">
       <p class="brand">💰 EaseSplit</p>
       <p>Split expenses with ease • Stay organized • Keep friendships strong</p>
-      <p style="font-size: 12px; color: #9ca3af; margin-top: 12px;">Generated on ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
-      <div class="footer-links">
-        <a href="#">Dashboard</a> • <a href="#">Settings</a> • <a href="#">Help</a>
+      <p style="font-size: 12px; color: #9ca3af; margin-top: 12px;">Report generated on ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+      <p style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Currency: ${currency} | Group: ${groupName}</p>
+      <div class="footer-links" style="margin-top: 16px;">
+        <a href="https://ease-split.vercel.app" style="color: #10b981; text-decoration: none; font-weight: 600;">Visit EaseSplit</a> • 
+        <a href="https://github.com/FarhanAlam-Official" style="color: #10b981; text-decoration: none; font-weight: 600;">GitHub</a> • 
+        <a href="https://ease-split.vercel.app/contact" style="color: #10b981; text-decoration: none; font-weight: 600;">Contact</a>
       </div>
+      <p style="font-size: 11px; color: #9ca3af; margin-top: 16px;">Made with ❤️ by <a href="https://github.com/FarhanAlam-Official" style="color: #10b981; text-decoration: none; font-weight: 600;">Farhan Alam</a></p>
     </div>
   </div>
 </body>

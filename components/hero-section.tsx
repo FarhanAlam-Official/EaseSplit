@@ -144,21 +144,44 @@ export function HeroSection() {
               </div>
             </motion.div>
 
-            {/* CTA Buttons - Simplified */}
+            {/* CTA Buttons - Enhanced Primary Button */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9 }}
               className="flex flex-wrap gap-4 pt-2"
             >
-              <Button size="lg" asChild className="group shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 transition-all text-base sm:text-lg px-6 py-5 sm:px-7 sm:py-6">
-                <Link href="/app">
-                  <Zap className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
-                  Start Free Now
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild className="group text-base sm:text-lg px-6 py-5 sm:px-7 sm:py-6 backdrop-blur-sm">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative"
+              >
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg blur-md opacity-50"
+                  animate={{
+                    scale: [1, 1.1, 1],
+                    opacity: [0.5, 0.7, 0.5]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+                <Button size="lg" asChild className="relative group bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-2xl shadow-green-500/40 hover:shadow-green-500/60 transition-all border border-green-500/20 font-semibold text-base sm:text-lg px-6 py-5 sm:px-7 sm:py-6">
+                  <Link href="/app" className="flex items-center">
+                    <motion.div
+                      animate={{ rotate: [0, 5, -5, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <Sparkles className="h-5 w-5" />
+                    </motion.div>
+                    <span className="ml-2">Start Free Now</span>
+                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </Button>
+              </motion.div>
+              <Button size="lg" variant="outline" asChild className="group text-base sm:text-lg px-6 py-5 sm:px-7 sm:py-6 backdrop-blur-sm hover:border-primary/50 transition-all">
                 <Link href="/how-it-works">
                   See How It Works
                 </Link>

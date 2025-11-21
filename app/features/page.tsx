@@ -219,12 +219,35 @@ export default function FeaturesPage() {
             <p className="text-xl text-muted-foreground mb-10">
               Join thousands of users who are splitting bills the smart way
             </p>
-            <Button size="lg" asChild className="group">
-              <Link href="/app">
-                Get Started Now
-                <Sparkles className="ml-2 h-4 w-4 group-hover:rotate-180 transition-transform duration-500" />
-              </Link>
-            </Button>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative inline-block"
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg blur-md opacity-50"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.5, 0.7, 0.5]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              <Button size="lg" asChild className="relative group bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-xl shadow-green-500/40 border border-green-500/20 font-semibold">
+                <Link href="/app" className="flex items-center">
+                  <motion.div
+                    animate={{ rotate: [0, 5, -5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <Sparkles className="h-4 w-4" />
+                  </motion.div>
+                  <span className="ml-2">Get Started Free</span>
+                </Link>
+              </Button>
+            </motion.div>
           </motion.div>
         </div>
       </section>

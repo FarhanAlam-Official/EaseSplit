@@ -20,6 +20,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Calendar as CalendarComponent } from "@/components/ui/calendar"
 import { format } from "date-fns"
 import { getCurrencySymbol } from "@/lib/utils"
+import { notifications } from "@/lib/notifications"
 
 interface ExpensesTabProps {
   onAddExpense: () => void
@@ -116,8 +117,13 @@ export function ExpensesTab({ onAddExpense, onEditExpense }: ExpensesTabProps) {
   }
 
   const handleDeleteSelected = () => {
-    if (confirm(`Delete ${selectedExpenses.size} expense(s)?`)) {
+    const count = selectedExpenses.size
+    if (confirm(`Delete ${count} expense(s)?`)) {
       selectedExpenses.forEach((id) => removeExpense(id))
+      notifications.showSuccess({
+        title: "Expenses Deleted",
+        description: `${count} expense${count > 1 ? 's' : ''} deleted successfully.`,
+      })
       setSelectedExpenses(new Set())
     }
   }

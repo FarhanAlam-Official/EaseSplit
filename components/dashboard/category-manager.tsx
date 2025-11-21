@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Plus, X, Tag } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import { notifications } from "@/lib/notifications"
 
 export function CategoryManager() {
   const { getAvailableCategories, addCustomCategory, removeCustomCategory, activeGroup } = useApp()
@@ -22,7 +23,16 @@ export function CategoryManager() {
   const handleAddCategory = () => {
     if (newCategory.trim() && !allCategories.includes(newCategory.trim())) {
       addCustomCategory(newCategory.trim())
+      notifications.showSuccess({
+        title: "Category Added!",
+        description: `"${newCategory}" has been added to your categories.`,
+      })
       setNewCategory("")
+    } else if (allCategories.includes(newCategory.trim())) {
+      notifications.showWarning({
+        title: "Category Exists",
+        description: "This category already exists.",
+      })
     }
   }
 
@@ -30,10 +40,17 @@ export function CategoryManager() {
     // Check if category is in use
     const inUse = activeGroup.expenses.some((e) => e.category === category)
     if (inUse) {
-      alert(`Cannot delete "${category}" - it's being used by existing expenses`)
+      notifications.showWarning({
+        title: "Cannot Delete",
+        description: `"${category}" is being used by existing expenses.`,
+      })
       return
     }
     removeCustomCategory(category)
+    notifications.showSuccess({
+      title: "Category Removed",
+      description: `"${category}" has been removed.`,
+    })
   }
 
   return (

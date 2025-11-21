@@ -9,6 +9,7 @@ import { Plus, Trash2, Users, Search, Phone, Mail, Edit2, Check, X } from "lucid
 import { motion, AnimatePresence } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { getCurrencySymbol } from "@/lib/utils"
+import { notifications } from "@/lib/notifications"
 
 export function MembersTab() {
   const { activeGroup, addMember, removeMember, updateMember, getMemberBalance } = useApp()
@@ -42,6 +43,10 @@ export function MembersTab() {
   const handleAddMember = () => {
     if (newMemberName.trim()) {
       addMember(newMemberName.trim(), newMemberEmail.trim() || undefined)
+      notifications.showSuccess({
+        title: "Member Added!",
+        description: `${newMemberName} has been added to the group.`,
+      })
       setNewMemberName("")
       setNewMemberEmail("")
     }
@@ -58,6 +63,10 @@ export function MembersTab() {
       updateMember(editingMemberId, {
         name: editName.trim(),
         email: editEmail.trim() || undefined,
+      })
+      notifications.showSuccess({
+        title: "Member Updated!",
+        description: "Member information has been updated successfully.",
       })
       setEditingMemberId(null)
       setEditName("")
@@ -302,6 +311,10 @@ export function MembersTab() {
                                 onClick={() => {
                                   if (confirm(`Remove ${member.name} from the group?`)) {
                                     removeMember(member.id)
+                                    notifications.showSuccess({
+                                      title: "Member Removed",
+                                      description: `${member.name} has been removed from the group.`,
+                                    })
                                   }
                                 }}
                               >

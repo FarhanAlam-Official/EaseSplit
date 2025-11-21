@@ -41,6 +41,8 @@ export interface Group {
   name: string
   currency: string
   createdAt: string
+  createdBy?: string // Name of the person who created the group
+  createdByEmail?: string // Email of the person who created the group
   members: Member[]
   expenses: Expense[]
   settings: GroupSettings

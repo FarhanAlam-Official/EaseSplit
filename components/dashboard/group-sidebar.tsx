@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Plus, Trash2, Users, Edit2, Check, X, Download, Loader2, Phone, Mail } from "lucide-react"
 import { downloadPDF } from "@/lib/pdf-generator"
 import { getCurrencySymbol } from "@/lib/utils"
+import { notifications } from "@/lib/notifications"
 
 interface GroupSidebarProps {
   onAddExpense: () => void
@@ -42,6 +43,15 @@ export function GroupSidebar({ onAddExpense }: GroupSidebarProps) {
     setIsGeneratingPDF(true)
     try {
       await downloadPDF(activeGroup)
+      notifications.showSuccess({
+        title: "PDF Generated!",
+        description: `${activeGroup.name} report downloaded successfully`,
+      })
+    } catch (error) {
+      notifications.showError({
+        title: "PDF Generation Failed",
+        description: "Could not generate PDF report. Please try again.",
+      })
     } finally {
       setIsGeneratingPDF(false)
     }

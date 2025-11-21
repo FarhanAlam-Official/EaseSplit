@@ -13,6 +13,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import type { ShareMap } from "@/lib/types"
 import { getCurrencySymbol } from "@/lib/utils"
+import { notifications } from "@/lib/notifications"
 
 interface EditExpenseModalProps {
   open: boolean
@@ -95,6 +96,11 @@ export function EditExpenseModal({ open, onOpenChange, expenseId }: EditExpenseM
       shares,
       category,
       notes: notes || undefined,
+    })
+
+    notifications.showSuccess({
+      title: "Expense Updated!",
+      description: `${title} has been updated successfully.`,
     })
 
     onOpenChange(false)

@@ -16,13 +16,14 @@ import nodemailer from "nodemailer"
 export async function POST(request: Request) {
   try {
     // Extract data from request body with type casting
-    const { to, fromName, toName, amount, currency, groupName } = (await request.json()) as {
+    const { to, fromName, toName, amount, currency, groupName, createdBy } = (await request.json()) as {
       to: string
       fromName: string
       toName: string
       amount: number
       currency: string
       groupName: string
+      createdBy?: string
     }
 
     // Use default SMTP from environment variables
@@ -118,6 +119,7 @@ export async function POST(request: Request) {
             <h1>EaseSplit</h1>
             <div class="header-subtitle">Settlement Reminder</div>
             <div class="header-badge">Payment Required</div>
+            ${createdBy ? `<p style="font-size: 13px; color: white; opacity: 0.9; margin-top: 10px; position: relative; z-index: 1;">👤 Group created by <strong>${createdBy}</strong></p>` : ''}
           </div>
 
           <div class="content">
@@ -185,8 +187,10 @@ export async function POST(request: Request) {
             <div class="footer-brand">💰 EaseSplit</div>
             <p class="footer-text">Split expenses with ease • Stay organized • Keep friendships strong</p>
             <div class="footer-meta">
-              <p style="margin: 4px 0;">This is an automated reminder sent by EaseSplit</p>
               <p style="margin: 4px 0;">Notification sent on ${new Date().toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+              <p style="margin: 4px 0;">Currency: ${currency} | Group: ${groupName}</p>
+              <p style="margin: 12px 0 8px;"><a href="https://ease-split.vercel.app" style="color: #10b981; text-decoration: none; font-weight: 600;">Visit EaseSplit</a> • <a href="https://github.com/FarhanAlam-Official" style="color: #10b981; text-decoration: none; font-weight: 600;">GitHub</a> • <a href="https://ease-split.vercel.app/contact" style="color: #10b981; text-decoration: none; font-weight: 600;">Contact</a></p>
+              <p style="margin: 8px 0 4px; font-size: 11px;">Made with ❤️ by <a href="https://github.com/FarhanAlam-Official" style="color: #10b981; text-decoration: none; font-weight: 600;">Farhan Alam</a></p>
             </div>
           </div>
         </div>

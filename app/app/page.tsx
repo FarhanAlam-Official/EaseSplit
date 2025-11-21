@@ -121,21 +121,21 @@ export default function AppPage() {
                 <div className="inline-flex items-center justify-center gap-3 mb-4 sm:mb-6">
                   <motion.div
                     animate={{ 
-                      rotate: [0, 10, -10, 10, 0],
-                      scale: [1, 1.1, 1.1, 1.1, 1]
+                      rotate: [0, 360],
+                      scale: [1, 1.1, 1]
                     }}
                     transition={{ 
-                      duration: 2,
-                      repeat: Infinity,
-                      repeatDelay: 3
+                      duration: 0.6,
+                      ease: "easeInOut"
                     }}
-                    className="relative flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary/60 shadow-xl shadow-primary/20"
+                    whileHover={{ rotate: 360, scale: 1.1 }}
+                    className="relative"
                   >
-                    <Receipt className="h-8 w-8 sm:h-10 sm:w-10 text-primary-foreground" />
-                    <motion.div
-                      className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-primary to-accent opacity-20 blur-md"
-                      animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.3, 0.2] }}
-                      transition={{ duration: 3, repeat: Infinity }}
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl blur-md group-hover:blur-lg transition-all" />
+                    <img 
+                      src="/logo.png" 
+                      alt="EaseSplit Logo" 
+                      className="relative h-16 w-16 sm:h-20 sm:w-20 object-contain drop-shadow-lg"
                     />
                   </motion.div>
                 </div>
@@ -148,7 +148,7 @@ export default function AppPage() {
                     className="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground leading-tight"
                   >
                     Welcome to{" "}
-                    <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
                       EaseSplit
                     </span>
                   </motion.h1>

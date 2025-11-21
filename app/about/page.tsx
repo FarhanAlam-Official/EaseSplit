@@ -236,12 +236,13 @@ export default function About() {
                     }}
                     className="relative"
                   >
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/30 to-emerald-500/30 rounded-2xl blur-xl" />
                     <Image
                       src="/logo.png"
                       alt="EaseSplit Logo"
-                      width={80}
-                      height={80}
-                      className="w-14 h-14 md:w-20 md:h-20 lg:w-24 lg:h-24 object-contain drop-shadow-2xl"
+                      width={96}
+                      height={96}
+                      className="relative w-14 h-14 md:w-20 md:h-20 lg:w-24 lg:h-24 object-contain drop-shadow-2xl"
                       priority
                     />
                   </motion.div>

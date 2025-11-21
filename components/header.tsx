@@ -40,17 +40,28 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 items-center gap-8 px-4 sm:px-6 lg:px-8">
-        {/* Logo */}
+        {/* Logo & Brand */}
         <Link href="/" className="flex items-center gap-3 group shrink-0">
           <motion.div
             whileHover={{ rotate: 360, scale: 1.1 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
+            className="relative"
           >
-            <img src="/logo.png" alt="EaseSplit" className="h-10 w-10 object-contain" />
+            <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl blur-md group-hover:blur-lg transition-all" />
+            <img 
+              src="/logo.png" 
+              alt="EaseSplit Logo" 
+              className="relative h-10 w-10 object-contain drop-shadow-lg"
+            />
           </motion.div>
-          <span className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-            EaseSplit
-          </span>
+          <div className="flex flex-col">
+            <span className="text-xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent group-hover:from-green-700 group-hover:to-emerald-700 transition-all">
+              EaseSplit
+            </span>
+            <span className="text-[10px] font-medium text-muted-foreground tracking-wider">
+              Split bills. Stay friends.
+            </span>
+          </div>
         </Link>
 
         {/* Desktop Navigation */}
@@ -129,15 +140,33 @@ export function Header() {
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            className="relative"
           >
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg blur-md opacity-50"
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.5, 0.7, 0.5]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
             <Button 
               asChild 
-              className="gap-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-lg shadow-green-500/30 hover:shadow-green-500/50 transition-all duration-300"
+              className="relative gap-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-xl shadow-green-500/40 hover:shadow-2xl hover:shadow-green-500/60 transition-all duration-300 border border-green-500/20 font-semibold"
               size="lg"
             >
-              <Link href="/app">
-                <DollarSign className="h-4 w-4" />
-                Get Started
+              <Link href="/app" className="flex items-center">
+                <motion.div
+                  animate={{ rotate: [0, 5, -5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Sparkles className="h-4 w-4" />
+                </motion.div>
+                <span className="ml-2">Get Started</span>
               </Link>
             </Button>
           </motion.div>
@@ -234,15 +263,28 @@ export function Header() {
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: (navLinks.length + 1) * 0.05 }}
+                className="relative"
               >
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg blur-md opacity-50"
+                  animate={{
+                    scale: [1, 1.05, 1],
+                    opacity: [0.5, 0.7, 0.5]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
                 <Button 
                   asChild 
-                  className="w-full gap-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white"
+                  className="relative w-full gap-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-lg shadow-green-500/40 border border-green-500/20 font-semibold"
                   size="lg"
                 >
-                  <Link href="/app">
-                    <DollarSign className="h-4 w-4" />
-                    Get Started
+                  <Link href="/app" onClick={() => setMobileMenuOpen(false)}>
+                    <Sparkles className="h-4 w-4" />
+                    Get Started Free
                   </Link>
                 </Button>
               </motion.div>

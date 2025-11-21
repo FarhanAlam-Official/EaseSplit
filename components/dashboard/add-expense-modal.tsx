@@ -14,6 +14,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { calculateShares } from "@/lib/calculations"
 import type { ShareMap } from "@/lib/types"
 import { getCurrencySymbol } from "@/lib/utils"
+import { notifications } from "@/lib/notifications"
 
 interface AddExpenseModalProps {
   open: boolean
@@ -81,6 +82,11 @@ export function AddExpenseModal({ open, onOpenChange }: AddExpenseModalProps) {
       shares,
       category,
       notes: notes || undefined,
+    })
+
+    notifications.showSuccess({
+      title: "Expense Added!",
+      description: `${title} - ${currencySymbol}${Number.parseFloat(amount).toFixed(2)} has been added successfully.`,
     })
 
     resetForm()

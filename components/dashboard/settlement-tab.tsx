@@ -71,6 +71,7 @@ export function SettlementTab() {
           amount: transfer.amount,
           currency: activeGroup.currency,
           groupName: activeGroup.name,
+          createdBy: activeGroup.createdBy,
         }),
       })
 
@@ -139,6 +140,7 @@ export function SettlementTab() {
             amount: transfer.amount,
             currency: activeGroup.currency,
             groupName: activeGroup.name,
+            createdBy: activeGroup.createdBy,
           }),
         })
 

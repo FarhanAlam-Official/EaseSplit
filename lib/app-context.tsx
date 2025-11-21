@@ -12,7 +12,7 @@ interface AppContextType {
   groups: Group[]
 
   // Group operations
-  createGroup: (name: string, currency: string) => string
+  createGroup: (name: string, currency: string, createdBy?: string, createdByEmail?: string) => string
   updateGroup: (groupId: string, updates: Partial<Group>) => void
   deleteGroup: (groupId: string) => void
   setActiveGroup: (groupId: string) => void
@@ -95,12 +95,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const activeGroup = groups.find((g) => g.id === data?.activeGroupId) || null
 
   const createGroup = useCallback(
-    (name: string, currency: string): string => {
+    (name: string, currency: string, createdBy?: string, createdByEmail?: string): string => {
       const newGroup: Group = {
         id: `g_${Date.now()}`,
         name,
         currency,
         createdAt: new Date().toISOString(),
+        createdBy,
+        createdByEmail,
         members: [],
         expenses: [],
         settings: { simplifyDebts: true, rounding: "nearest-1" },

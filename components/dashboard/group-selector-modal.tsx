@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Plus, Trash2, Users, CheckCircle } from "lucide-react"
+import { notifications } from "@/lib/notifications"
 
 interface GroupSelectorModalProps {
   open: boolean
@@ -21,12 +22,25 @@ export function GroupSelectorModal({ open, onOpenChange }: GroupSelectorModalPro
   const [showCreateForm, setShowCreateForm] = useState(false)
   const [newGroupName, setNewGroupName] = useState("")
   const [newGroupCurrency, setNewGroupCurrency] = useState("USD")
+  const [creatorName, setCreatorName] = useState("")
+  const [creatorEmail, setCreatorEmail] = useState("")
 
   const handleCreateGroup = () => {
     if (newGroupName.trim()) {
-      createGroup(newGroupName.trim(), newGroupCurrency)
+      createGroup(
+        newGroupName.trim(), 
+        newGroupCurrency, 
+        creatorName.trim() || undefined, 
+        creatorEmail.trim() || undefined
+      )
+      notifications.showSuccess({
+        title: "Group Created!",
+        description: `${newGroupName} has been created successfully.`,
+      })
       setNewGroupName("")
       setNewGroupCurrency("USD")
+      setCreatorName("")
+      setCreatorEmail("")
       setShowCreateForm(false)
     }
   }
@@ -73,7 +87,13 @@ export function GroupSelectorModal({ open, onOpenChange }: GroupSelectorModalPro
                       className="h-8 w-8 text-muted-foreground hover:text-destructive"
                       onClick={(e) => {
                         e.stopPropagation()
-                        deleteGroup(group.id)
+                        if (confirm(`Delete "${group.name}"? This action cannot be undone.`)) {
+                          deleteGroup(group.id)
+                          notifications.showSuccess({
+                            title: "Group Deleted",
+                            description: `${group.name} has been deleted.`,
+                          })
+                        }
                       }}
                     >
                       <Trash2 className="h-4 w-4" />
@@ -115,6 +135,27 @@ export function GroupSelectorModal({ open, onOpenChange }: GroupSelectorModalPro
                     ))}
                   </SelectContent>
                 </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="creatorName">Your Name (Optional)</Label>
+                <Input
+                  id="creatorName"
+                  placeholder="e.g., John Doe"
+                  value={creatorName}
+                  onChange={(e) => setCreatorName(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground">Will be shown in group emails</p>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="creatorEmail">Your Email (Optional)</Label>
+                <Input
+                  id="creatorEmail"
+                  type="email"
+                  placeholder="e.g., john@example.com"
+                  value={creatorEmail}
+                  onChange={(e) => setCreatorEmail(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground">For email notifications</p>
               </div>
               <div className="flex gap-2">
                 <Button className="flex-1" onClick={handleCreateGroup}>

@@ -16,11 +16,18 @@ export function DashboardHeader({ onGroupSelect, onExportImport }: DashboardHead
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
       <div className="container mx-auto flex h-14 max-w-[1600px] items-center justify-between px-3 sm:px-4 lg:px-6">
-        <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary shadow-sm">
-            <DollarSign className="h-5 w-5 text-primary-foreground" />
+        <Link href="/" className="flex items-center gap-2 group hover:opacity-90 transition-all">
+          <div className="relative flex h-8 w-8 items-center justify-center rounded-lg shadow-md group-hover:shadow-lg transition-all">
+            <img 
+              src="/logo.png" 
+              alt="EaseSplit Logo" 
+              className="h-8 w-8 object-contain"
+            />
           </div>
-          <span className="text-lg sm:text-xl font-bold text-foreground">EaseSplit</span>
+          <div className="flex flex-col -space-y-1">
+            <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">EaseSplit</span>
+            <span className="hidden sm:block text-[9px] font-medium text-muted-foreground tracking-wider">Dashboard</span>
+          </div>
         </Link>
 
         <div className="flex items-center gap-2">
