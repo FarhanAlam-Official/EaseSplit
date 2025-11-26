@@ -1,0 +1,18 @@
+/* TEAM */
+Lead Developer: John Doe
+Contact: john@easesplit.app
+Twitter: @johndoe
+Location: San Francisco, CA
+
+UI/UX Designer: Jane Smith
+Contact: jane@easesplit.app
+Twitter: @janesmith
+Location: New York, NY
+
+/* THANKS */
+Special thanks to the open source community and all contributors
+
+/* SITE */
+Standards: HTML5, CSS3, JavaScript, TypeScript
+Components: Next.js, React, Tailwind CSS, Radix UI
+Software: VS Code, Figma, Git
