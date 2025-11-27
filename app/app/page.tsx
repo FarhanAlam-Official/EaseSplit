@@ -131,7 +131,7 @@ export default function AppPage() {
                     whileHover={{ rotate: 360, scale: 1.1 }}
                     className="relative"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl blur-md group-hover:blur-lg transition-all" />
+                    <div className="absolute inset-0 bg-primary/20 rounded-xl blur-md group-hover:blur-lg transition-all" />
                     <img 
                       src="/logo.png" 
                       alt="EaseSplit Logo" 
@@ -148,7 +148,7 @@ export default function AppPage() {
                     className="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground leading-tight"
                   >
                     Welcome to{" "}
-                    <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
                       EaseSplit
                     </span>
                   </motion.h1>

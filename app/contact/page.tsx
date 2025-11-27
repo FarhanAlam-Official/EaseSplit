@@ -13,7 +13,7 @@ import { Footer } from "@/components/footer"
 import { motion } from "framer-motion"
 // Animation library for smooth transitions and hover effects
 
-import { Mail, MessageSquare, Send, MapPin, Phone, Clock, Github, Twitter, Linkedin } from "lucide-react"
+import { Mail, MessageSquare, Send, MapPin, Phone, Clock, Github, Twitter, Linkedin, Facebook, Instagram } from "lucide-react"
 // Icon components for visual representation of contact methods and social links
 
 import { Button } from "@/components/ui/button"
@@ -28,36 +28,41 @@ import { Textarea } from "@/components/ui/textarea"
 import { useState } from "react"
 // React hook for managing form state
 
+import { notifications } from "@/lib/notifications"
+// Notification system for user feedback
+
 // Contact information data structure
 const contactInfo = [
   {
     icon: Mail,
     title: "Email Us",
-    value: "hello@easesplit.app",
+    value: "easesplit.tool@gmail.com",
     description: "We'll respond within 24 hours",
     color: "from-blue-500 to-cyan-500",
   },
   {
     icon: MessageSquare,
     title: "Live Chat",
-    value: "Available 9AM - 6PM EST",
+    value: "Available 9AM - 6PM NPT",
     description: "Get instant support",
     color: "from-green-500 to-emerald-500",
   },
   {
     icon: MapPin,
     title: "Location",
-    value: "San Francisco, CA",
-    description: "Building the future",
+    value: "Bharatpur-03, Chitwan",
+    description: "Nepal",
     color: "from-purple-500 to-pink-500",
   },
 ]
 
 // Social media links data structure
 const socialLinks = [
-  { icon: Github, label: "GitHub", href: "#", color: "hover:text-gray-900 dark:hover:text-gray-100" },
+  { icon: Github, label: "GitHub", href: "https://github.com/FarhanAlam-Official", color: "hover:text-gray-900 dark:hover:text-gray-100" },
+  { icon: Facebook, label: "Facebook", href: "https://facebook.com/farhanalam930", color: "hover:text-blue-600" },
+  { icon: Instagram, label: "Instagram", href: "https://instagram.com/farhan.alam.01", color: "hover:text-pink-500" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/farhan-alam-aa56b2309", color: "hover:text-blue-700" },
   { icon: Twitter, label: "Twitter", href: "#", color: "hover:text-blue-400" },
-  { icon: Linkedin, label: "LinkedIn", href: "#", color: "hover:text-blue-600" },
 ]
 
 // Frequently asked questions data structure
@@ -93,14 +98,59 @@ export default function ContactPage() {
     message: "",
   })
 
+  // State for tracking submission status
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
+
   /**
    * Handle form submission
    * @param e - Form event object
    */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log("Form submitted:", formData)
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send message")
+      }
+
+      // Show success message
+      notifications.showSuccess({
+        title: "Message Sent!",
+        description: data.message || "We'll get back to you within 24 hours.",
+      })
+
+      // Reset form and set submitted state
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      })
+      setIsSubmitted(true)
+
+      // Reset submitted state after 5 seconds
+      setTimeout(() => setIsSubmitted(false), 5000)
+    } catch (error) {
+      // Show error message
+      notifications.showError({
+        title: "Failed to Send",
+        description: error instanceof Error ? error.message : "Please try again later or contact us directly.",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -219,7 +269,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-foreground mb-1">Support Hours</h4>
-                    <p className="text-muted-foreground">Monday - Friday, 9:00 AM - 6:00 PM EST</p>
+                    <p className="text-muted-foreground">Monday - Friday, 9:00 AM - 6:00 PM NPT</p>
                   </div>
                 </div>
               </div>
@@ -250,6 +300,22 @@ export default function ContactPage() {
             >
               {/* Form for user messages */}
               <form onSubmit={handleSubmit} className="space-y-6 p-8 rounded-3xl bg-card border border-border backdrop-blur-sm">
+                {/* Success message after submission */}
+                {isSubmitted && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-4 rounded-xl bg-primary/10 border border-primary/30 text-primary"
+                  >
+                    <div className="flex items-center gap-2">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <p className="font-medium">Message sent successfully!</p>
+                    </div>
+                  </motion.div>
+                )}
+
                 {/* Name input field */}
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
@@ -262,6 +328,7 @@ export default function ContactPage() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
+                    disabled={isSubmitting}
                     className="w-full"
                   />
                 </div>
@@ -278,6 +345,7 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
+                    disabled={isSubmitting}
                     className="w-full"
                   />
                 </div>
@@ -294,6 +362,7 @@ export default function ContactPage() {
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     required
+                    disabled={isSubmitting}
                     className="w-full"
                   />
                 </div>
@@ -309,15 +378,28 @@ export default function ContactPage() {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     required
+                    disabled={isSubmitting}
                     rows={6}
                     className="w-full"
                   />
                 </div>
 
-                {/* Submit button with animation */}
-                <Button type="submit" size="lg" className="w-full group">
-                  Send Message
-                  <Send className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                {/* Submit button with animation and loading state */}
+                <Button type="submit" size="lg" className="w-full group" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <Send className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
                 </Button>
               </form>
             </motion.div>
