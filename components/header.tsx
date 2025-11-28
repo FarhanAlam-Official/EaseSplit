@@ -172,23 +172,47 @@ export function Header() {
           </motion.div>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden p-2 rounded-lg hover:bg-accent transition-colors ml-auto" 
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          <AnimatePresence mode="wait">
+        {/* Mobile Actions */}
+        <div className="md:hidden flex items-center gap-2 ml-auto">
+          {/* Mobile Theme Toggle */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="rounded-lg hover:bg-accent"
+          >
             <motion.div
-              key={mobileMenuOpen ? "close" : "open"}
-              initial={{ rotate: -90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 90, opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              initial={false}
+              animate={{ rotate: theme === "dark" ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
             >
-              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {theme === "dark" ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
             </motion.div>
-          </AnimatePresence>
-        </button>
+            <span className="sr-only">Toggle theme</span>
+          </Button>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className="p-2 rounded-lg hover:bg-accent transition-colors" 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={mobileMenuOpen ? "close" : "open"}
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </motion.div>
+            </AnimatePresence>
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -233,31 +257,6 @@ export function Header() {
                 )
               })}
               
-              {/* Mobile Theme Toggle */}
-              <motion.div
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: navLinks.length * 0.05 }}
-              >
-                <Button
-                  variant="outline"
-                  className="w-full justify-start gap-2"
-                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                >
-                  {theme === "dark" ? (
-                    <>
-                      <Sun className="h-4 w-4" />
-                      Light Mode
-                    </>
-                  ) : (
-                    <>
-                      <Moon className="h-4 w-4" />
-                      Dark Mode
-                    </>
-                  )}
-                </Button>
-              </motion.div>
-
               {/* Mobile Get Started Button */}
               <motion.div
                 initial={{ x: -20, opacity: 0 }}

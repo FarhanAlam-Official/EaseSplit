@@ -69,19 +69,43 @@ const socialLinks = [
 const faqs = [
   {
     question: "How do I get started?",
-    answer: "Simply click 'Get Started' and create your first group. No account or installation needed!",
+    answer: "Simply click 'Get Started' and create your first group. No account or installation needed! You can add members, track expenses, and settle debts instantly.",
   },
   {
     question: "Is my data secure?",
-    answer: "Absolutely! All data is stored locally on your device. We never send anything to our servers.",
+    answer: "Absolutely! All data is stored locally on your device using browser storage. We never send anything to our servers, ensuring complete privacy and security.",
   },
   {
     question: "Can I export my data?",
-    answer: "Yes! You can export PDF reports or copy settlement details anytime.",
+    answer: "Yes! You can export detailed PDF reports with expense breakdowns, copy settlement details, or export/import your entire group data as JSON files for backup purposes.",
   },
   {
     question: "Is it really free?",
-    answer: "Yes! EaseSplit is completely free with no hidden costs or premium tiers.",
+    answer: "Yes! EaseSplit is completely free with no hidden costs, premium tiers, or subscription fees. All features are available to everyone, forever.",
+  },
+  {
+    question: "How does the settlement calculation work?",
+    answer: "Our smart algorithm calculates the minimum number of transactions needed to settle all debts. It analyzes who owes what and provides the most efficient payment plan.",
+  },
+  {
+    question: "Can I use EaseSplit offline?",
+    answer: "Yes! Since all data is stored locally, you can use EaseSplit completely offline. However, you'll need an internet connection for features like email notifications.",
+  },
+  {
+    question: "How many groups can I create?",
+    answer: "There's no limit! You can create as many groups as you need and manage multiple groups simultaneously. Perfect for different friend circles, trips, or household expenses.",
+  },
+  {
+    question: "Can I edit or delete expenses after adding them?",
+    answer: "Absolutely! You can edit any expense details including amount, description, category, or split method. You can also delete expenses if they were added by mistake.",
+  },
+  {
+    question: "What expense splitting methods are supported?",
+    answer: "We support equal split, custom amounts, percentages, and shares. You can also mark specific members who participated in each expense for accurate tracking.",
+  },
+  {
+    question: "How do I share group data with others?",
+    answer: "You can export your group as a JSON file and share it with members. They can import it into their EaseSplit to see the same data and continue managing expenses.",
   },
 ]
 
@@ -101,6 +125,32 @@ export default function ContactPage() {
   // State for tracking submission status
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+
+  // State for managing FAQ interactions
+  const [hoveredFaqIndex, setHoveredFaqIndex] = useState<number | null>(null)
+  const [clickedFaqIndex, setClickedFaqIndex] = useState<number | null>(null)
+
+  /**
+   * Handle FAQ click to toggle open/close state
+   * @param index - Index of the clicked FAQ
+   */
+  const handleFaqClick = (index: number) => {
+    if (clickedFaqIndex === index) {
+      // If already clicked, close it
+      setClickedFaqIndex(null)
+    } else {
+      // Open the clicked FAQ
+      setClickedFaqIndex(index)
+    }
+  }
+
+  /**
+   * Check if FAQ should be open (either hovered or clicked)
+   * @param index - Index of the FAQ
+   */
+  const isFaqOpen = (index: number) => {
+    return clickedFaqIndex === index || (hoveredFaqIndex === index && clickedFaqIndex !== index)
+  }
 
   /**
    * Handle form submission
@@ -187,7 +237,7 @@ export default function ContactPage() {
             {/* Main headline with gradient effect on key words */}
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground mb-6">
               Get in
-              <span className="block text-primary mt-2 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+              <span className="text-primary ml-2 mt-2 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                 Touch
               </span>
             </h1>
@@ -425,22 +475,112 @@ export default function ContactPage() {
             </p>
           </motion.div>
 
-          {/* FAQ items with animation */}
-          <div className="space-y-6">
+          {/* FAQ items with animation and interactive hover/click */}
+          <div className="space-y-4">
             {faqs.map((faq, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="p-6 rounded-2xl bg-card border border-border hover:border-primary/40 transition-all duration-300"
+                transition={{ delay: index * 0.05 }}
+                onMouseEnter={() => setHoveredFaqIndex(index)}
+                onMouseLeave={() => setHoveredFaqIndex(null)}
+                onClick={() => handleFaqClick(index)}
+                className="relative overflow-hidden rounded-2xl bg-card border border-border hover:border-primary/40 transition-all duration-300 cursor-pointer group"
               >
-                <h3 className="text-lg font-semibold text-foreground mb-2">{faq.question}</h3>
-                <p className="text-muted-foreground">{faq.answer}</p>
+                {/* Background gradient effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                <div className="relative p-6">
+                  {/* Question with arrow indicator */}
+                  <div className="flex items-start justify-between gap-4">
+                    <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-300 flex-1">
+                      {faq.question}
+                    </h3>
+                    <motion.div
+                      animate={{ 
+                        rotate: isFaqOpen(index) ? 180 : 0,
+                        scale: isFaqOpen(index) ? 1.1 : 1
+                      }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="flex-shrink-0 mt-1"
+                    >
+                      <svg 
+                        className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-300" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </motion.div>
+                  </div>
+
+                  {/* Answer with smooth expand/collapse animation */}
+                  <motion.div
+                    initial={false}
+                    animate={{
+                      height: isFaqOpen(index) ? "auto" : 0,
+                      opacity: isFaqOpen(index) ? 1 : 0,
+                      marginTop: isFaqOpen(index) ? 12 : 0,
+                    }}
+                    transition={{ 
+                      duration: 0.3,
+                      ease: "easeInOut"
+                    }}
+                    className="overflow-hidden"
+                  >
+                    <p className="text-muted-foreground leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </motion.div>
+
+                  {/* Locked state indicator */}
+                  {clickedFaqIndex === index && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="absolute top-3 right-12 flex items-center gap-1 text-xs text-primary font-medium"
+                    >
+                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                      </svg>
+                    </motion.div>
+                  )}
+                </div>
               </motion.div>
             ))}
           </div>
+
+          {/* Additional help section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="mt-12 text-center"
+          >
+            <div className="p-8 rounded-3xl bg-gradient-to-br from-primary/10 to-accent/10 border border-border backdrop-blur-sm">
+              <h3 className="text-xl font-bold text-foreground mb-3">
+                Still have questions?
+              </h3>
+              <p className="text-muted-foreground mb-6">
+                Can't find the answer you're looking for? Feel free to reach out to our support team.
+              </p>
+              <Button 
+                size="lg" 
+                className="group"
+                onClick={() => {
+                  // Scroll to contact form
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }}
+              >
+                Contact Support
+                <MessageSquare className="ml-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+              </Button>
+            </div>
+          </motion.div>
         </div>
       </section>
 
