@@ -145,8 +145,8 @@ export function Footer() {
               <div className="space-y-2 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <Mail className="h-4 w-4 text-primary" />
-                  <a href="mailto:thefarhanalam01@gmail.com" className="hover:text-foreground transition-colors">
-                    thefarhanalam01@gmail.com
+                  <a href="mailto:easesplit.tool@gmail.com" className="hover:text-foreground transition-colors">
+                    easesplit.tool@gmail.com
                   </a>
                 </div>
               </div>
