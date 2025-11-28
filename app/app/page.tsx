@@ -43,7 +43,7 @@ import { QuickStats } from "@/components/dashboard/quick-stats"
 import { RecentActivity } from "@/components/dashboard/recent-activity"
 // Component showing recent activity in the group
 
-import { CategoryManager } from "@/components/dashboard/category-manager"
+import { SettingsTab } from "@/components/dashboard/settings-tab"
 // Component for managing expense categories
 
 import { Header } from "@/components/header"
@@ -522,7 +522,7 @@ export default function AppPage() {
                   </TabsContent>
 
                   <TabsContent value="settings" className="mt-0 space-y-0">
-                    <CategoryManager />
+                    <SettingsTab />
                   </TabsContent>
                 </div>
               </Tabs>

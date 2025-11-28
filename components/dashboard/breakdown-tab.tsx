@@ -122,15 +122,15 @@ export function BreakdownTab() {
   return (
     <div className="space-y-6">
       {/* Header with Send Button */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
         <div>
-          <h2 className="text-2xl font-bold">Expense Breakdown</h2>
-          <p className="text-sm text-muted-foreground">Detailed analysis of all expenses and member balances</p>
+          <h2 className="text-xl sm:text-2xl font-bold">Expense Breakdown</h2>
+          <p className="text-xs sm:text-sm text-muted-foreground">Detailed analysis of all expenses and member balances</p>
         </div>
         <Button 
           onClick={handleSendBreakdownToAll}
           disabled={sendingBreakdown || activeGroup.members.filter(m => m.email).length === 0}
-          className="gap-2"
+          className="gap-2 w-full sm:w-auto"
         >
           <Mail className="h-4 w-4" />
           {sendingBreakdown ? "Sending..." : "Send Breakdown to All"}
@@ -177,21 +177,21 @@ export function BreakdownTab() {
       {/* Balance Summary */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base flex items-center gap-2">
-            <Calculator className="h-5 w-5" />
+          <CardTitle className="text-base sm:text-lg flex items-center gap-2">
+            <Calculator className="h-4 w-4 sm:h-5 sm:w-5" />
             Member Balance Summary
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-xs sm:text-sm">
             Overview of how much each member has paid and owes
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {balances.map((balance) => (
-              <div key={balance.memberId} className="border rounded-lg p-4">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center gap-3">
-                    <div className={`flex h-10 w-10 items-center justify-center rounded-full font-semibold ${
+              <div key={balance.memberId} className="border rounded-lg p-3 sm:p-4">
+                <div className="flex items-start justify-between mb-3 gap-3">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className={`flex h-10 w-10 sm:h-10 sm:w-10 items-center justify-center rounded-full font-semibold flex-shrink-0 ${
                       balance.netBalance > 0.01 
                         ? "bg-primary/10 text-primary" 
                         : balance.netBalance < -0.01
@@ -200,21 +200,21 @@ export function BreakdownTab() {
                     }`}>
                       {balance.memberName.charAt(0).toUpperCase()}
                     </div>
-                    <div>
-                      <p className="font-semibold text-foreground text-lg">{balance.memberName}</p>
-                      <div className="flex items-center gap-2 mt-1">
+                    <div className="min-w-0">
+                      <p className="font-semibold text-foreground text-base sm:text-lg truncate">{balance.memberName}</p>
+                      <div className="flex flex-wrap items-center gap-2 mt-1">
                         {Math.abs(balance.netBalance) < 0.01 ? (
-                          <Badge variant="outline" className="bg-accent">
+                          <Badge variant="outline" className="bg-accent text-xs">
                             <CheckCircle className="mr-1 h-3 w-3" />
                             Settled Up
                           </Badge>
                         ) : balance.netBalance > 0 ? (
-                          <Badge variant="default">
+                          <Badge variant="default" className="text-xs">
                             <TrendingUp className="mr-1 h-3 w-3" />
                             Gets back {currencySymbol}{balance.netBalance.toFixed(2)}
                           </Badge>
                         ) : (
-                          <Badge variant="destructive">
+                          <Badge variant="destructive" className="text-xs">
                             <TrendingDown className="mr-1 h-3 w-3" />
                             Owes {currencySymbol}{Math.abs(balance.netBalance).toFixed(2)}
                           </Badge>
@@ -226,18 +226,18 @@ export function BreakdownTab() {
                 
                 <Separator className="my-3" />
                 
-                <div className="grid grid-cols-3 gap-4 text-sm">
+                <div className="grid grid-cols-3 gap-2 sm:gap-4 text-sm">
                   <div>
-                    <p className="text-muted-foreground mb-1">Total Paid</p>
-                    <p className="text-lg font-semibold text-primary">{currencySymbol}{balance.totalPaid.toFixed(2)}</p>
+                    <p className="text-muted-foreground mb-1 text-xs sm:text-sm">Total Paid</p>
+                    <p className="text-base sm:text-lg font-semibold text-primary">{currencySymbol}{balance.totalPaid.toFixed(2)}</p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground mb-1">Total Owes</p>
-                    <p className="text-lg font-semibold text-muted-foreground">{currencySymbol}{balance.totalOwed.toFixed(2)}</p>
+                    <p className="text-muted-foreground mb-1 text-xs sm:text-sm">Total Owes</p>
+                    <p className="text-base sm:text-lg font-semibold text-muted-foreground">{currencySymbol}{balance.totalOwed.toFixed(2)}</p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground mb-1">Net Balance</p>
-                    <p className={`text-lg font-semibold ${
+                    <p className="text-muted-foreground mb-1 text-xs sm:text-sm">Net Balance</p>
+                    <p className={`text-base sm:text-lg font-semibold ${
                       balance.netBalance > 0.01 
                         ? "text-primary" 
                         : balance.netBalance < -0.01
@@ -257,11 +257,11 @@ export function BreakdownTab() {
       {/* Expense Details */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base flex items-center gap-2">
-            <FileText className="h-5 w-5" />
+          <CardTitle className="text-base sm:text-lg flex items-center gap-2">
+            <FileText className="h-4 w-4 sm:h-5 sm:w-5" />
             Detailed Expense Breakdown
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-xs sm:text-sm">
             Click on any expense to see how it was split among members
           </CardDescription>
         </CardHeader>
@@ -270,16 +270,16 @@ export function BreakdownTab() {
             {breakdowns.map((expense, index) => {
               const expenseDetails = activeGroup.expenses.find(e => e.id === expense.expenseId)
               return (
-                <AccordionItem key={expense.expenseId} value={expense.expenseId} className="border rounded-lg mb-3 px-4">
+                <AccordionItem key={expense.expenseId} value={expense.expenseId} className="border rounded-lg mb-3 px-3 sm:px-4">
                   <AccordionTrigger className="hover:no-underline">
-                    <div className="flex items-center justify-between w-full pr-4">
-                      <div className="flex items-center gap-4">
-                        <Badge variant="secondary" className="font-semibold">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full pr-2 sm:pr-4 gap-2">
+                      <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                        <Badge variant="secondary" className="font-semibold text-xs flex-shrink-0">
                           #{index + 1}
                         </Badge>
-                        <div className="text-left">
-                          <p className="font-semibold text-foreground">{expense.title}</p>
-                          <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
+                        <div className="text-left min-w-0">
+                          <p className="font-semibold text-foreground text-sm sm:text-base truncate">{expense.title}</p>
+                          <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-muted-foreground mt-1">
                             <span className="flex items-center gap-1">
                               <User className="h-3 w-3" />
                               {expense.payerName}
@@ -299,8 +299,8 @@ export function BreakdownTab() {
                           </div>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <p className="text-xl font-bold text-primary">{currencySymbol}{expense.amount.toFixed(2)}</p>
+                      <div className="text-left sm:text-right flex-shrink-0">
+                        <p className="text-lg sm:text-xl font-bold text-primary">{currencySymbol}{expense.amount.toFixed(2)}</p>
                         <p className="text-xs text-muted-foreground mt-1">{expense.shares.length} members</p>
                       </div>
                     </div>
@@ -308,23 +308,23 @@ export function BreakdownTab() {
                   <AccordionContent>
                     <div className="space-y-4 pt-4">
                       {/* Expense Info */}
-                      <div className="grid grid-cols-2 gap-4 p-4 bg-accent/30 rounded-lg">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 p-3 sm:p-4 bg-accent/30 rounded-lg">
                         <div>
                           <p className="text-xs text-muted-foreground mb-1">Paid By</p>
-                          <p className="font-semibold text-foreground flex items-center gap-2">
+                          <p className="font-semibold text-foreground flex items-center gap-2 text-sm">
                             <User className="h-4 w-4" />
                             {expense.payerName}
                           </p>
                         </div>
                         <div>
                           <p className="text-xs text-muted-foreground mb-1">Split Method</p>
-                          <Badge variant="outline" className="capitalize">
+                          <Badge variant="outline" className="capitalize text-xs">
                             <ArrowRightLeft className="mr-1 h-3 w-3" />
                             {expense.splitType}
                           </Badge>
                         </div>
                         {expenseDetails?.notes && (
-                          <div className="col-span-2">
+                          <div className="col-span-1 sm:col-span-2">
                             <p className="text-xs text-muted-foreground mb-1">Notes</p>
                             <p className="text-sm text-foreground italic">"{expenseDetails.notes}"</p>
                           </div>
@@ -335,31 +335,31 @@ export function BreakdownTab() {
                       <div>
                         <div className="flex items-center gap-2 mb-3">
                           <Users className="h-4 w-4 text-muted-foreground" />
-                          <p className="font-semibold text-foreground">Member Breakdown</p>
+                          <p className="font-semibold text-foreground text-sm">Member Breakdown</p>
                         </div>
                         <div className="space-y-2">
                           {expense.shares.map((share) => {
                             const isPayer = share.memberId === expense.payerId
                             const percentage = ((share.amount / expense.amount) * 100).toFixed(1)
                             return (
-                              <div key={share.memberId} className={`flex items-center justify-between p-3 rounded-lg border ${
+                              <div key={share.memberId} className={`flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 rounded-lg border gap-2 ${
                                 isPayer ? "bg-primary/5 border-primary/20" : "bg-background"
                               }`}>
-                                <div className="flex items-center gap-3">
-                                  <div className={`flex h-8 w-8 items-center justify-center rounded-full font-semibold text-sm ${
+                                <div className="flex items-center gap-3 min-w-0">
+                                  <div className={`flex h-8 w-8 items-center justify-center rounded-full font-semibold text-sm flex-shrink-0 ${
                                     isPayer ? "bg-primary/10 text-primary" : "bg-accent text-foreground"
                                   }`}>
                                     {share.memberName.charAt(0).toUpperCase()}
                                   </div>
-                                  <div>
-                                    <p className="font-medium text-foreground">{share.memberName}</p>
+                                  <div className="min-w-0">
+                                    <p className="font-medium text-foreground text-sm truncate">{share.memberName}</p>
                                     <p className="text-xs text-muted-foreground">
                                       {percentage}% of total expense
                                     </p>
                                   </div>
                                 </div>
-                                <div className="text-right">
-                                  <p className="font-semibold text-foreground">{currencySymbol}{share.amount.toFixed(2)}</p>
+                                <div className="text-left sm:text-right">
+                                  <p className="font-semibold text-foreground text-sm sm:text-base">{currencySymbol}{share.amount.toFixed(2)}</p>
                                   {isPayer ? (
                                     <Badge variant="default" className="text-xs mt-1">
                                       <DollarSign className="mr-1 h-3 w-3" />
@@ -380,7 +380,7 @@ export function BreakdownTab() {
                       {/* Calculation Explanation */}
                       <div className="p-3 bg-primary/5 border border-primary/20 rounded-lg">
                         <p className="text-sm font-semibold text-foreground mb-1">💡 How was this calculated?</p>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-xs sm:text-sm text-muted-foreground">
                           {expense.splitType === "equal" && (
                             `Total amount of ${currencySymbol}${expense.amount.toFixed(2)} was split equally among ${expense.shares.length} members, resulting in ${currencySymbol}${(expense.amount / expense.shares.length).toFixed(2)} per person.`
                           )}

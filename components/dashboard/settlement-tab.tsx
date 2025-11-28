@@ -219,17 +219,17 @@ export function SettlementTab() {
       {/* Member Balances */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base flex items-center gap-2">
-            <Users className="h-5 w-5" />
+          <CardTitle className="text-base sm:text-lg flex items-center gap-2">
+            <Users className="h-4 w-4 sm:h-5 sm:w-5" />
             Individual Balances
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
             {balances.map((balance) => (
-              <div key={balance.memberId} className="flex items-center justify-between p-4 rounded-lg border">
+              <div key={balance.memberId} className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 rounded-lg border gap-3">
                 <div className="flex items-center gap-3">
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-full font-semibold text-lg ${
+                  <div className={`flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full font-semibold text-base sm:text-lg flex-shrink-0 ${
                     balance.netBalance > 0.01 
                       ? "bg-primary/10 text-primary" 
                       : balance.netBalance < -0.01
@@ -238,14 +238,14 @@ export function SettlementTab() {
                   }`}>
                     {balance.memberName.charAt(0).toUpperCase()}
                   </div>
-                  <div>
-                    <p className="font-semibold text-foreground">{balance.memberName}</p>
-                    <p className="text-sm text-muted-foreground">
+                  <div className="min-w-0">
+                    <p className="font-semibold text-foreground text-sm sm:text-base truncate">{balance.memberName}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">
                       Paid {currencySymbol}{balance.totalPaid.toFixed(2)} • Owes {currencySymbol}{balance.totalOwed.toFixed(2)}
                     </p>
                   </div>
                 </div>
-                <div className="text-right">
+                <div className="text-left sm:text-right">
                   {Math.abs(balance.netBalance) < 0.01 ? (
                     <Badge variant="outline" className="bg-accent">
                       <CheckCircle className="mr-1 h-3 w-3" />
@@ -257,7 +257,7 @@ export function SettlementTab() {
                         <TrendingUp className="mr-1 h-3 w-3" />
                         Gets Back
                       </Badge>
-                      <p className="text-lg font-bold text-primary">{currencySymbol}{balance.netBalance.toFixed(2)}</p>
+                      <p className="text-base sm:text-lg font-bold text-primary">{currencySymbol}{balance.netBalance.toFixed(2)}</p>
                     </div>
                   ) : (
                     <div>
@@ -265,7 +265,7 @@ export function SettlementTab() {
                         <TrendingDown className="mr-1 h-3 w-3" />
                         Owes
                       </Badge>
-                      <p className="text-lg font-bold text-destructive">{currencySymbol}{Math.abs(balance.netBalance).toFixed(2)}</p>
+                      <p className="text-base sm:text-lg font-bold text-destructive">{currencySymbol}{Math.abs(balance.netBalance).toFixed(2)}</p>
                     </div>
                   )}
                 </div>
@@ -278,23 +278,26 @@ export function SettlementTab() {
       {/* Settlement Plan */}
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="text-base flex items-center gap-2">
-                <DollarSign className="h-5 w-5" />
-                Settlement Plan
-              </CardTitle>
-              <p className="text-sm text-muted-foreground mt-1">
-                Optimized transfers to settle all balances
-              </p>
+          <div className="space-y-3">
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <CardTitle className="text-base sm:text-lg flex items-center gap-2">
+                  <DollarSign className="h-4 w-4 sm:h-5 sm:w-5" />
+                  Settlement Plan
+                </CardTitle>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+                  Optimized transfers to settle all balances
+                </p>
+              </div>
             </div>
             {settlements.length > 0 && (
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <Button 
                   variant="default" 
                   size="sm" 
                   onClick={handleNotifyAll}
                   disabled={sendingAll}
+                  className="w-full sm:w-auto"
                 >
                   {sendingAll ? (
                     <>
@@ -308,7 +311,7 @@ export function SettlementTab() {
                     </>
                   )}
                 </Button>
-                <Button variant="outline" size="sm" onClick={handleCopy}>
+                <Button variant="outline" size="sm" onClick={handleCopy} className="w-full sm:w-auto">
                   {copied ? (
                     <>
                       <CheckCircle className="mr-2 h-4 w-4 text-primary" />
@@ -347,39 +350,40 @@ export function SettlementTab() {
                 const hasEmail = !!fromMember?.email
                 return (
                   <div key={index}>
-                    <div className="flex items-center justify-between p-5 rounded-lg bg-gradient-to-r from-accent/30 to-accent/50 border">
-                      <div className="flex items-center gap-4 flex-1">
-                        <Badge variant="secondary" className="font-semibold">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 sm:p-5 rounded-lg bg-gradient-to-r from-accent/30 to-accent/50 border gap-4">
+                      <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+                        <Badge variant="secondary" className="font-semibold text-xs sm:text-sm flex-shrink-0">
                           #{index + 1}
                         </Badge>
-                        <div className="flex items-center gap-3 flex-1">
-                          <div className="flex flex-col items-center">
-                            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-destructive/20 text-destructive font-bold text-lg border-2 border-destructive/40">
+                        <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+                          <div className="flex flex-col items-center flex-shrink-0">
+                            <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-destructive/20 text-destructive font-bold text-base sm:text-lg border-2 border-destructive/40">
                               {getMemberInitial(transfer.from)}
                             </div>
-                            <p className="text-xs font-medium text-muted-foreground mt-1">Payer</p>
+                            <p className="text-[10px] sm:text-xs font-medium text-muted-foreground mt-1">Payer</p>
                           </div>
                           
-                          <div className="flex flex-col items-center gap-1 px-4">
-                            <ArrowRight className="h-6 w-6 text-primary" />
-                            <p className="text-xs font-medium text-primary">pays</p>
+                          <div className="flex flex-col items-center gap-1 px-2 sm:px-4 flex-shrink-0">
+                            <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                            <p className="text-[10px] sm:text-xs font-medium text-primary">pays</p>
                           </div>
                           
-                          <div className="flex flex-col items-center">
-                            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/20 text-primary font-bold text-lg border-2 border-primary/40">
+                          <div className="flex flex-col items-center flex-shrink-0">
+                            <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-primary/20 text-primary font-bold text-base sm:text-lg border-2 border-primary/40">
                               {getMemberInitial(transfer.to)}
                             </div>
-                            <p className="text-xs font-medium text-muted-foreground mt-1">Receiver</p>
+                            <p className="text-[10px] sm:text-xs font-medium text-muted-foreground mt-1">Receiver</p>
                           </div>
                         </div>
                       </div>
                       
-                      <Separator orientation="vertical" className="mx-4 h-16" />
+                      <Separator orientation="vertical" className="hidden sm:block mx-4 h-16" />
+                      <Separator className="sm:hidden" />
                       
-                      <div className="text-right space-y-2">
+                      <div className="text-left sm:text-right space-y-2 w-full sm:w-auto">
                         <div>
-                          <p className="text-2xl font-bold text-foreground mb-1">{currencySymbol}{transfer.amount.toFixed(2)}</p>
-                          <p className="text-sm font-medium text-muted-foreground">
+                          <p className="text-xl sm:text-2xl font-bold text-foreground mb-1">{currencySymbol}{transfer.amount.toFixed(2)}</p>
+                          <p className="text-xs sm:text-sm font-medium text-muted-foreground">
                             {fromName} → {toName}
                           </p>
                         </div>

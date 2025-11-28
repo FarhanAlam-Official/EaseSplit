@@ -224,18 +224,20 @@ export function MembersTab() {
                     <CardContent className="p-4">
                       {isEditing ? (
                         <div className="space-y-3">
-                          <div className="flex gap-2">
+                          <div className="flex flex-col sm:flex-row gap-2">
                             <Input
                               value={editName}
                               onChange={(e) => setEditName(e.target.value)}
                               placeholder="Member name"
                               autoFocus
+                              className="flex-1"
                             />
                             <Input
                               value={editEmail}
                               type="email"
                               onChange={(e) => setEditEmail(e.target.value)}
                               placeholder="Email (optional)"
+                              className="flex-1"
                             />
                           </div>
                           <div className="flex gap-2 justify-end">
@@ -250,40 +252,42 @@ export function MembersTab() {
                           </div>
                         </div>
                       ) : (
-                        <div className="flex items-center gap-4">
-                          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary/20 to-primary/10 text-lg font-semibold text-primary flex-shrink-0">
-                            {member.name.charAt(0).toUpperCase()}
-                          </div>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+                          <div className="flex items-center gap-3 flex-1 min-w-0">
+                            <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary/20 to-primary/10 text-base sm:text-lg font-semibold text-primary flex-shrink-0">
+                              {member.name.charAt(0).toUpperCase()}
+                            </div>
 
-                          <div className="flex-1 min-w-0">
-                            <h4 className="font-semibold text-foreground text-lg">
-                              {member.name}
-                            </h4>
-                            <div className="flex flex-wrap items-center gap-2 mt-1">
-                              {member.email ? (
-                                <div className="flex items-center gap-2">
-                                  <p className="text-sm text-muted-foreground">{member.email}</p>
-                                  <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="h-6 w-6 hover:text-primary"
-                                    onClick={() => window.open(`mailto:${member.email}`)}
-                                    title="Send Email"
-                                  >
-                                    <Mail className="h-3 w-3" />
-                                  </Button>
-                                </div>
-                              ) : (
-                                <p className="text-sm text-muted-foreground">No email</p>
-                              )}
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-semibold text-foreground text-base sm:text-lg truncate">
+                                {member.name}
+                              </h4>
+                              <div className="flex flex-wrap items-center gap-2 mt-1">
+                                {member.email ? (
+                                  <div className="flex items-center gap-2 min-w-0">
+                                    <p className="text-xs sm:text-sm text-muted-foreground truncate">{member.email}</p>
+                                    <Button
+                                      variant="ghost"
+                                      size="icon"
+                                      className="h-6 w-6 hover:text-primary flex-shrink-0"
+                                      onClick={() => window.open(`mailto:${member.email}`)}
+                                      title="Send Email"
+                                    >
+                                      <Mail className="h-3 w-3" />
+                                    </Button>
+                                  </div>
+                                ) : (
+                                  <p className="text-xs sm:text-sm text-muted-foreground">No email</p>
+                                )}
+                              </div>
                             </div>
                           </div>
 
-                          <div className="flex items-center gap-3">
-                            <div className="text-right">
+                          <div className="flex items-center justify-between sm:justify-end gap-3">
+                            <div className="text-left sm:text-right">
                               <p className="text-xs text-muted-foreground mb-1">Balance</p>
                               <p
-                                className={`text-lg font-bold ${
+                                className={`text-base sm:text-lg font-bold ${
                                   isPositive
                                     ? "text-primary"
                                     : isNegative
@@ -295,7 +299,7 @@ export function MembersTab() {
                               </p>
                             </div>
 
-                            <div className="flex gap-1">
+                            <div className="flex gap-1 flex-shrink-0">
                               <Button
                                 variant="ghost"
                                 size="icon"
