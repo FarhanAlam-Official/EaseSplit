@@ -12,16 +12,13 @@ import { motion } from "framer-motion"
 
 import { 
   Mail, MapPin, Phone, Github, Twitter, Linkedin, Facebook, 
-  Instagram, Heart, Sparkles, ArrowRight, Shield, Zap, Users,
+  Instagram, Heart, ArrowRight, Shield, Zap, Users,
   Code, Terminal, Database, Cpu
 } from "lucide-react"
 // Icon components for visual representation of contact info, social links, and features
 
 import { Button } from "@/components/ui/button"
 // Styled button component from UI library
-
-import { Input } from "@/components/ui/input"
-// Styled input component for newsletter signup
 
 // Footer navigation links organized by category
 const footerLinks = {
@@ -100,37 +97,6 @@ export function Footer() {
       <div className="absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-accent/10 blur-3xl opacity-50" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Newsletter Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="py-16 border-b border-border/50"
-        >
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h3 className="text-3xl font-bold text-foreground mb-3 flex items-center gap-2">
-                <Sparkles className="h-7 w-7 text-primary" />
-                Stay Updated
-              </h3>
-              <p className="text-muted-foreground text-lg">
-                Get tips, updates, and exclusive features delivered to your inbox.
-              </p>
-            </div>
-            <div className="flex gap-3">
-              <Input 
-                type="email" 
-                placeholder="Enter your email" 
-                className="flex-1 h-12 bg-background/50 backdrop-blur-sm"
-              />
-              <Button size="lg" className="group">
-                Subscribe
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </div>
-          </div>
-        </motion.div>
-
         {/* Main Footer Content */}
         <div className="py-16">
           <div className="grid grid-cols-2 md:grid-cols-7 gap-8 mb-12">
@@ -142,7 +108,7 @@ export function Footer() {
                   transition={{ duration: 0.6, ease: "easeInOut" }}
                   className="relative"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl blur-md group-hover:blur-lg transition-all" />
+                  <div className="absolute inset-0 bg-primary/20 rounded-xl blur-md group-hover:blur-lg transition-all" />
                   <img 
                     src="/logo.png" 
                     alt="EaseSplit Logo" 
@@ -150,7 +116,7 @@ export function Footer() {
                   />
                 </motion.div>
                 <div className="flex flex-col">
-                  <span className="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                  <span className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
                     EaseSplit
                   </span>
                   <span className="text-xs font-medium text-muted-foreground tracking-wider">
@@ -264,7 +230,7 @@ export function Footer() {
             <p className="text-sm text-muted-foreground flex items-center gap-2">
               © {new Date().getFullYear()} EaseSplit. Made with 
               <Heart className="h-4 w-4 text-red-500 fill-red-500 animate-pulse drop-shadow-[0_0_8px_rgba(239,68,68,0.6)]" /> 
-              by <a href="https://github.com/FarhanAlam-Official" target="_blank" rel="noopener noreferrer" className="font-semibold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent hover:from-green-500 hover:to-emerald-500 transition-all no-underline">Farhan Alam</a>
+              by <a href="https://github.com/FarhanAlam-Official" target="_blank" rel="noopener noreferrer" className="font-semibold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent hover:from-primary/90 hover:to-primary transition-all no-underline">Farhan Alam</a>
             </p>
 
             {/* Social Links */}

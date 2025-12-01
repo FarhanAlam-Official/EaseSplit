@@ -47,7 +47,7 @@ export function Header() {
             transition={{ duration: 0.6, ease: "easeInOut" }}
             className="relative"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl blur-md group-hover:blur-lg transition-all" />
+            <div className="absolute inset-0 bg-primary/20 rounded-xl blur-md group-hover:blur-lg transition-all" />
             <img 
               src="/logo.png" 
               alt="EaseSplit Logo" 
@@ -55,7 +55,7 @@ export function Header() {
             />
           </motion.div>
           <div className="flex flex-col">
-            <span className="text-xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent group-hover:from-green-700 group-hover:to-emerald-700 transition-all">
+            <span className="text-xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent group-hover:from-primary/90 group-hover:to-primary transition-all">
               EaseSplit
             </span>
             <span className="text-[10px] font-medium text-muted-foreground tracking-wider">
@@ -81,9 +81,9 @@ export function Header() {
                     relative px-4 py-2 text-sm font-medium rounded-lg
                     transition-all duration-300 ease-in-out
                     flex items-center gap-2 group
-                    hover:bg-green-100 hover:text-green-600 dark:hover:bg-green-950 dark:hover:text-green-400
+                    hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 dark:hover:text-primary
                     ${active 
-                      ? 'bg-green-100 text-green-600 dark:bg-green-950 dark:text-green-400' 
+                      ? 'bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary' 
                       : 'text-muted-foreground'
                     }
                   `}
@@ -143,7 +143,7 @@ export function Header() {
             className="relative"
           >
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg blur-md opacity-50"
+              className="absolute inset-0 bg-primary rounded-lg blur-md opacity-50"
               animate={{
                 scale: [1, 1.1, 1],
                 opacity: [0.5, 0.7, 0.5]
@@ -156,7 +156,7 @@ export function Header() {
             />
             <Button 
               asChild 
-              className="relative gap-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-xl shadow-green-500/40 hover:shadow-2xl hover:shadow-green-500/60 transition-all duration-300 border border-green-500/20 font-semibold"
+              className="relative gap-2 bg-primary hover:bg-primary/90 text-primary-foreground shadow-xl shadow-primary/40 hover:shadow-2xl hover:shadow-primary/60 transition-all duration-300 border border-primary/20 font-semibold"
               size="lg"
             >
               <Link href="/app" className="flex items-center">
@@ -218,9 +218,9 @@ export function Header() {
                         px-4 py-2 text-sm font-medium rounded-lg
                         transition-all duration-200
                         flex items-center gap-2
-                        hover:bg-green-100 hover:text-green-600 dark:hover:bg-green-950 dark:hover:text-green-400
+                        hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 dark:hover:text-primary
                         ${active 
-                          ? 'bg-green-100 text-green-600 dark:bg-green-950 dark:text-green-400'
+                          ? 'bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary'
                           : 'text-muted-foreground'
                         }
                       `}
@@ -266,7 +266,7 @@ export function Header() {
                 className="relative"
               >
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg blur-md opacity-50"
+                  className="absolute inset-0 bg-primary rounded-lg blur-md opacity-50"
                   animate={{
                     scale: [1, 1.05, 1],
                     opacity: [0.5, 0.7, 0.5]
@@ -279,7 +279,7 @@ export function Header() {
                 />
                 <Button 
                   asChild 
-                  className="relative w-full gap-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-lg shadow-green-500/40 border border-green-500/20 font-semibold"
+                  className="relative w-full gap-2 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/40 border border-primary/20 font-semibold"
                   size="lg"
                 >
                   <Link href="/app" onClick={() => setMobileMenuOpen(false)}>

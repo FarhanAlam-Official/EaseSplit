@@ -157,7 +157,7 @@ export function HeroSection() {
                 className="relative"
               >
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg blur-md opacity-50"
+                  className="absolute inset-0 bg-primary rounded-lg blur-md opacity-50"
                   animate={{
                     scale: [1, 1.1, 1],
                     opacity: [0.5, 0.7, 0.5]
@@ -168,7 +168,7 @@ export function HeroSection() {
                     ease: "easeInOut"
                   }}
                 />
-                <Button size="lg" asChild className="relative group bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-2xl shadow-green-500/40 hover:shadow-green-500/60 transition-all border border-green-500/20 font-semibold text-base sm:text-lg px-6 py-5 sm:px-7 sm:py-6">
+                <Button size="lg" asChild className="relative group bg-primary hover:bg-primary/90 text-primary-foreground shadow-2xl shadow-primary/40 hover:shadow-primary/60 transition-all border border-primary/20 font-semibold text-base sm:text-lg px-6 py-5 sm:px-7 sm:py-6">
                   <Link href="/app" className="flex items-center">
                     <motion.div
                       animate={{ rotate: [0, 5, -5, 0] }}
